@@ -20,7 +20,13 @@ class ChuyenXeAdapter(
     fun getXe() = xeRepo.getReferenceById(chuyenXe.xe)
     fun getThoiGianDi() = chuyenXe.thoiGianDi
     fun getThoiGianDen() = chuyenXe.thoiGianDen
-    fun toModel() = ChuyenXeModel(getId(), getLoTrinh(), getTaiXe(), getXe(), getThoiGianDi(), getThoiGianDen(), chuyenXe.giaVe)
+
+    fun getChieu() = if(chuyenXe.chieu) {
+        "Xuôi"
+    } else {
+        "Ngược"
+    }
+    fun toModel() = ChuyenXeModel(getId(), getLoTrinh(), getTaiXe(), getXe(), getThoiGianDi(), getThoiGianDen(), chuyenXe.giaVe, getChieu())
 }
 
 class ChuyenXeModel(
@@ -30,7 +36,8 @@ class ChuyenXeModel(
     val xe: Xe,
     val tgDi: Long,
     val tgDen: Long,
-    val giaVe: Long
+    val giaVe: Long,
+    val chieu: String
 ) {
 
 }

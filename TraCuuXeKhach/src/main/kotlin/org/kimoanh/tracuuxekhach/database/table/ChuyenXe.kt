@@ -12,6 +12,7 @@ class ChuyenXe(
     val loTrinh: Long,
     val taiXe: Long,
     val xe: Long,
-    val giaVe: Long
+    val giaVe: Long,
+    val chieu: Boolean
 ) {
 }
