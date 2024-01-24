@@ -16,8 +16,8 @@ class App extends React.Component {
             <>
 
                 <div
-                    style={{height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
-                    <h1 style={{color:"#aaa"}}>TRA CỨU XE KHÁCH LIÊN TỈNH</h1>
+                    style={{height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", padding: "100px 0px 0px 0px"}}>
+                    <h1 style={{color:"#aaa", fontSize: "3em"}}>TRA CỨU XE KHÁCH LIÊN TỈNH</h1>
                     <div style={{
                         borderRadius: "20px",
                         boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.3)"
@@ -29,7 +29,7 @@ class App extends React.Component {
                             alignItems: "center",
                             padding: "0px 20px"
                         }}>
-                            <img src={SearchIcon}/>
+                            <img src={SearchIcon} title={"SearchIcon"} alt={"SearchIcon"}/>
                             <input type={"text"}
                                    style={{
                                        border: "none",
@@ -38,7 +38,7 @@ class App extends React.Component {
                                        height: "90%",
                                        margin: "0px 10px"
                                    }}/>
-                            <img src={MicIcon}/>
+                            <img src={MicIcon} title={"MicIcon"} alt={"MicIcon"}/>
                             <hr style={{display: this.state.isHideResult}}/>
 
                         </div>
