@@ -8,5 +8,4 @@ class LoTrinh(
     @Id
     val id: Long,
     val loTrinh: String,
-) {
-}
+)

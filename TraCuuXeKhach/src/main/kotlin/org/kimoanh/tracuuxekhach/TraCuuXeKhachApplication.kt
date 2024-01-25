@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class TraCuuXeKhachApplication
 
 fun main(args: Array<String>) {
-	runApplication<TraCuuXeKhachApplication>(*args)
+    runApplication<TraCuuXeKhachApplication>(*args)
 }

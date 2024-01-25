@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class MainController {
-
     @Autowired
     lateinit var chuyenXeRepo: ChuyenXeRepo
 
@@ -25,7 +24,6 @@ class MainController {
 
     @Autowired
     lateinit var xeRepo: XeRepo
-
 
     @GetMapping("/all")
     @CrossOrigin(origins = arrayOf("http://localhost:3000/"))
