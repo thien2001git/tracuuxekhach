@@ -1,23 +1,13 @@
-// src/App.js
-
-import React from 'react';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import App from "../presentation/App";
-import Link from "../components/Link";
-import MyLink from "../components/Link";
-
+import React from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import App from '../presentation/App'
+import MyLink from '../components/Link'
 
 const About = () => (
     <div>
         <h2>About</h2>
     </div>
-);
-
-const Contact = () => (
-    <div>
-        <h2>Contact</h2>
-    </div>
-);
+)
 
 const MyRouter = () => {
     return (
@@ -36,7 +26,7 @@ const MyRouter = () => {
                 </Routes>
             </div>
         </Router>
-    );
-};
+    )
+}
 
-export default MyRouter;
+export default MyRouter

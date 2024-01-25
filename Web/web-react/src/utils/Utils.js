@@ -6,6 +6,6 @@ var fetchChuyenXe = async () => {
         console.error('Error fetching data:', error);
 
     }
-};
+}
 
-export default fetchChuyenXe;
+export default fetchChuyenXe
