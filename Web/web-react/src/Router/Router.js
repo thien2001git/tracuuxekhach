@@ -4,29 +4,29 @@ import App from '../presentation/App'
 import MyLink from '../components/Link'
 
 const About = () => (
-    <div>
-        <h2>About</h2>
-    </div>
+  <div>
+    <h2>About</h2>
+  </div>
 )
 
 const MyRouter = () => {
-    return (
-        <Router>
-            <div>
-                <nav style={{display: "flex", justifyContent: "center"}}>
-                    <MyLink name={"Trang chủ"} href={"/"}/>
-                    <MyLink name={"Tất cả chuyến xe"} href={"/tat-ca-chuyen-xe"}/>
-                </nav>
+  return (
+    <Router>
+      <div>
+        <nav style={{ display: 'flex', justifyContent: 'center' }}>
+          <MyLink name={'Trang chủ'} href={'/'} />
+          <MyLink name={'Tất cả chuyến xe'} href={'/tat-ca-chuyen-xe'} />
+        </nav>
 
-                <hr/>
+        <hr />
 
-                <Routes>
-                    <Route path="/" element={<App/>}/>
-                    <Route path="/tat-ca-chuyen-xe" element={<About/>}/>
-                </Routes>
-            </div>
-        </Router>
-    )
+        <Routes>
+          <Route path='/' element={<App />} />
+          <Route path='/tat-ca-chuyen-xe' element={<About />} />
+        </Routes>
+      </div>
+    </Router>
+  )
 }
 
 export default MyRouter
