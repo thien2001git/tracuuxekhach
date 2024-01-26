@@ -3,8 +3,10 @@ import React from 'react'
 import SearchIcon from '../images/Search.svg'
 import MicIcon from '../images/Mic fill.svg'
 import ClockHistory from '../images/Clock history.svg'
-import fetchChuyenXe from '../utils/Utils'
+import myFetch from '../utils/myFetch'
 import SearchHistory from '../components/SearchHistory'
+import postDataToAPI from '../utils/postDataToAPI'
+import listLink from '../utils/ListLink'
 
 class App extends React.Component {
   constructor(props) {
@@ -12,6 +14,7 @@ class App extends React.Component {
     this.state = {
       isHideResult: 'none',
       textSearch: '',
+      listHistory: null,
     }
   }
 
@@ -23,8 +26,38 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    myFetch(listLink.chuyenXe).then((value) =>
+      this.setState({
+        chuyenXe: value,
+      }),
+    )
+    this.fetchHistory()
+    myFetch(listLink.getHistory).then((value) => console.log(value))
+  }
+
+  fetchHistory() {
+    myFetch(listLink.getHistory).then((value) =>
+      this.setState({
+        listHistory: value,
+      }),
+    )
+  }
+
+  handleKeyDown(event) {
+    if (event.key === 'Enter') {
+      console.log(this.state.textSearch)
+      const postData = {
+        data: this.state.textSearch,
+      }
+      postDataToAPI(JSON.stringify(postData), listLink.postHistory).then(() => {
+        this.fetchHistory()
+      })
+    }
+  }
+
+  handleBlur() {
     this.setState({
-      chuyenXe: fetchChuyenXe(),
+      isHideResult: 'none',
     })
   }
 
@@ -33,6 +66,29 @@ class App extends React.Component {
       this.setState({
         textSearch: childData,
       })
+    }
+
+    var his = <div>ok</div>
+    const ListComponent = ({ items }) => {
+      return (
+        <>
+          {items?.map((item, index) => (
+            <SearchHistory
+              key={index}
+              icon={ClockHistory}
+              title={item.data}
+              onDataUpdate={handleChildData}
+            />
+          ))}
+        </>
+      )
+    }
+    if (this.state.listHistory != null) {
+      var x = []
+      for (var i = 0; i < this.state.listHistory.length; i++) {
+        x.push(this.state.listHistory[i])
+      }
+      his = <ListComponent items={x} />
     }
 
     return (
@@ -76,17 +132,13 @@ class App extends React.Component {
                 onChange={this.handleInput.bind(this)}
                 onClick={this.handleInput.bind(this)}
                 value={this.state.textSearch}
+                onKeyDown={this.handleKeyDown.bind(this)}
+                onBlur={this.handleBlur.bind(this)}
               />
               <img src={MicIcon} title={'MicIcon'} alt={'MicIcon'} />
             </div>
 
-            <div style={{ display: this.state.isHideResult }}>
-              <SearchHistory
-                icon={ClockHistory}
-                title={'okok'}
-                onDataUpdate={handleChildData}
-              />
-            </div>
+            <div style={{ display: this.state.isHideResult }}>{his}</div>
           </div>
         </div>
       </>
