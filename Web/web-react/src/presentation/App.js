@@ -26,11 +26,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    myFetch(listLink.chuyenXe).then((value) =>
-      this.setState({
-        chuyenXe: value,
-      }),
-    )
     this.fetchHistory()
     myFetch(listLink.getHistory).then((value) => console.log(value))
   }

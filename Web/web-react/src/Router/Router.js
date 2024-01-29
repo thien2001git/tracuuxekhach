@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import App from '../presentation/App'
 import MyLink from '../components/Link'
+import TatCaChuyenXe from '../presentation/TatCaChuyenXe'
 
 const About = () => (
   <div>
@@ -22,7 +23,7 @@ const MyRouter = () => {
 
         <Routes>
           <Route path='/' element={<App />} />
-          <Route path='/tat-ca-chuyen-xe' element={<About />} />
+          <Route path='/tat-ca-chuyen-xe' element={<TatCaChuyenXe />} />
         </Routes>
       </div>
     </Router>
