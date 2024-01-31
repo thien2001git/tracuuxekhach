@@ -23,6 +23,17 @@ class App extends React.Component {
       isHideResult: 'block',
       textSearch: ev.target.value,
     })
+
+    const postData = {
+      data: this.state.textSearch,
+    }
+    postDataToAPI(JSON.stringify(postData), listLink.postSearch).then(
+      (value) => {
+        this.setState({
+          recommend: value,
+        })
+      },
+    )
   }
 
   componentDidMount() {
