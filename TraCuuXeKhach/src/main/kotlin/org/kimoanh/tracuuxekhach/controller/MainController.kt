@@ -88,9 +88,15 @@ class MainController {
         return res
     }
 
+<<<<<<< HEAD
     fun addList(str: String, re: String, res: ArrayList<SearchResponse>): Boolean {
         if (str.contains(re)) {
             res.add(SearchResponse(str, false))
+=======
+    fun addList(str: String, re: String, res: ArrayList<String>): Boolean {
+        if (str.contains(re)) {
+            res.add(str)
+>>>>>>> origin/master
             return true
         }
         return false
