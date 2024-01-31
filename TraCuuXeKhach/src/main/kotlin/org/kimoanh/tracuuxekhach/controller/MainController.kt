@@ -50,4 +50,48 @@ class MainController {
 
     @GetMapping("/get-history")
     fun getHistory() = Utils.readFile()
+
+    @PostMapping("/search")
+    fun search(
+        @RequestBody requestHistory: RequestHistory,
+    ): List<String> {
+        val string = requestHistory.data
+        val res = ArrayList<String>()
+        val his = Utils.readFile()
+        his.forEach {
+            if (it.data.contains(string)) {
+                res.add(it.data)
+            }
+        }
+        val list = ArrayList<ChuyenXeModel>()
+        val chuyenXe = chuyenXeRepo.findAll()
+        for (i in chuyenXe) {
+            list.add(ChuyenXeAdapter(i, loTrinhRepo, taiXeRepo, xeRepo).toModel())
+        }
+        list.forEach {
+            addList(it.chieu, string, res)
+            addList(it.xe.bienSo, string, res)
+            addList(it.xe.hangXe, string, res)
+            addList(it.xe.loaiXe, string, res)
+            addList(it.xe.soCho.toString(), string, res)
+            addList(it.tgDi.toString(), string, res)
+            addList(it.tgDen.toString(), string, res)
+            addList(it.giaVe.toString(), string, res)
+            addList(it.loTrinh.loTrinh, string, res)
+            addList(it.taiXe.sdt, string, res)
+            addList(it.taiXe.bangLai, string, res)
+            addList(it.taiXe.fullName, string, res)
+            addList(it.taiXe.ngayLayBang.toString(), string, res)
+            addList(it.taiXe.ngaySinh.toString(), string, res)
+        }
+        return res
+    }
+
+    fun addList(str: String, re: String, res: ArrayList<String>): Boolean {
+        if (str.contains(re)) {
+            res.add(str)
+            return true
+        }
+        return false
+    }
 }
