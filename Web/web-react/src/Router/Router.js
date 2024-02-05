@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import App from '../presentation/App'
 import MyLink from '../components/Link'
 import TatCaChuyenXe from '../presentation/TatCaChuyenXe'
+import SearchResult from '../presentation/SearchResult'
 
 const About = () => (
   <div>
@@ -24,6 +25,7 @@ const MyRouter = () => {
         <Routes>
           <Route path='/' element={<App />} />
           <Route path='/tat-ca-chuyen-xe' element={<TatCaChuyenXe />} />
+          <Route path='/tim-kiem/:str' element={<SearchResult />} />
         </Routes>
       </div>
     </Router>

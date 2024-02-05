@@ -9,7 +9,7 @@ const postDataToAPI = async (postData, api) => {
       },
     })
 
-    console.log('Response from API:', response.data)
+    console.log('Response from API:')
     return response.data
   } catch (error) {
     console.error('Error:', error.message)

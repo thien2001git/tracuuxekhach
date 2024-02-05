@@ -1,12 +1,12 @@
 import '../css/App.css'
 import React from 'react'
 import SearchIcon from '../images/Search.svg'
-import MicIcon from '../images/Mic fill.svg'
 import ClockHistory from '../images/Clock history.svg'
 import myFetch from '../utils/myFetch'
 import SearchHistory from '../components/SearchHistory'
 import postDataToAPI from '../utils/postDataToAPI'
 import listLink from '../utils/ListLink'
+import { useNavigate } from 'react-router-dom'
 
 class App extends React.Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.fetchHistory()
-    myFetch(listLink.getHistory).then((value) => console.log(value))
+    myFetch(listLink.getHistory).then((value) => console.log('history'))
   }
 
   fetchHistory() {
@@ -51,15 +51,21 @@ class App extends React.Component {
 
   handleKeyDown(event) {
     if (event.key === 'Enter') {
-      console.log(this.state.textSearch)
+      console.log('search enter')
       const postData = {
         data: this.state.textSearch,
       }
       postDataToAPI(JSON.stringify(postData), listLink.postHistory).then(() => {
         this.fetchHistory()
       })
+      this.props.history(`tim-kiem/${this.state.textSearch}`)
     }
   }
+
+  // handleNavigation = () => {
+  //   const navigate = useNavigate()
+  //   navigate(`tim-kiem/${this.state.textSearch}`)
+  // }
 
   handleBlur() {
     this.setState({
@@ -69,6 +75,7 @@ class App extends React.Component {
 
   render() {
     const handleChildData = (childData) => {
+      console.log(childData)
       this.setState({
         textSearch: childData,
       })
@@ -81,7 +88,7 @@ class App extends React.Component {
           {items?.map((item, index) => (
             <SearchHistory
               key={index}
-              icon={ClockHistory}
+              icon={item.icon}
               title={item.data}
               onDataUpdate={handleChildData}
             />
@@ -89,10 +96,16 @@ class App extends React.Component {
         </>
       )
     }
-    if (this.state.listHistory != null) {
+    if (this.state.recommend != null) {
       var x = []
-      for (var i = 0; i < this.state.listHistory.length; i++) {
-        x.push(this.state.listHistory[i])
+      for (var i = 0; i < this.state.recommend.length; i++) {
+        var ic =
+          this.state.recommend[i].isHistory === true ? ClockHistory : SearchIcon
+        var e = {
+          data: this.state.recommend[i].data,
+          icon: ic,
+        }
+        x.push(e)
       }
       his = <ListComponent items={x} />
     }
@@ -139,9 +152,8 @@ class App extends React.Component {
                 onClick={this.handleInput.bind(this)}
                 value={this.state.textSearch}
                 onKeyDown={this.handleKeyDown.bind(this)}
-                onBlur={this.handleBlur.bind(this)}
+                // onBlur={this.handleBlur.bind(this)}
               />
-              <img src={MicIcon} title={'MicIcon'} alt={'MicIcon'} />
             </div>
 
             <div style={{ display: this.state.isHideResult }}>{his}</div>
@@ -152,4 +164,9 @@ class App extends React.Component {
   }
 }
 
-export default App
+function App2() {
+  const history = useNavigate()
+  return <App history={history} />
+}
+
+export default App2

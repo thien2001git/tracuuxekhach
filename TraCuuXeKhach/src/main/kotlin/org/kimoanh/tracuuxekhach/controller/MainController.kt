@@ -56,7 +56,7 @@ class MainController {
     fun search(
         @RequestBody requestHistory: RequestHistory,
     ): List<SearchResponse> {
-        val string = requestHistory.data
+        val string = requestHistory.data.lowercase()
         val res = ArrayList<SearchResponse>()
         val his = Utils.readFile()
         his.forEach {
@@ -89,7 +89,7 @@ class MainController {
     }
 
     fun addList(str: String, re: String, res: ArrayList<SearchResponse>): Boolean {
-        if (str.contains(re)) {
+        if (str.lowercase().contains(re)) {
             res.add(SearchResponse(str, false))
             return true
         }
