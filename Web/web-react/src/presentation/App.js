@@ -7,6 +7,7 @@ import SearchHistory from '../components/SearchHistory'
 import postDataToAPI from '../utils/postDataToAPI'
 import listLink from '../utils/ListLink'
 import { useNavigate } from 'react-router-dom'
+import mapNhaXe from '../utils/mapNhaXe'
 
 class App extends React.Component {
   constructor(props) {
@@ -67,12 +68,6 @@ class App extends React.Component {
   //   navigate(`tim-kiem/${this.state.textSearch}`)
   // }
 
-  handleBlur() {
-    this.setState({
-      isHideResult: 'none',
-    })
-  }
-
   render() {
     const handleChildData = (childData) => {
       console.log(childData)
@@ -110,8 +105,34 @@ class App extends React.Component {
       his = <ListComponent items={x} />
     }
 
+    var listNhaXe = []
+    for (var key in mapNhaXe) {
+      listNhaXe.push(mapNhaXe[key])
+    }
+
+    const ListNhaxe = ({ items }) => {
+      return (
+        <>
+          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            {items?.map((item, index) => (
+              <img
+                style={{
+                  width: '64px',
+                  height: '64px',
+                  margin: '0px 40px',
+                }}
+                key={index}
+                src={item}
+              />
+            ))}
+          </div>
+        </>
+      )
+    }
+
     return (
       <>
+        <ListNhaxe items={listNhaXe} />
         <div
           style={{
             display: 'flex',

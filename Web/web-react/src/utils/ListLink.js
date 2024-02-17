@@ -4,6 +4,7 @@ const links = {
   getHistory: `${root}/get-history`,
   postHistory: `${root}/history`,
   postSearch: `${root}/search`,
+  postSearchRespone: `${root}/get-search`,
 }
 
 export default links

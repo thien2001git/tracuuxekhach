@@ -4,6 +4,7 @@ import App from '../presentation/App'
 import MyLink from '../components/Link'
 import TatCaChuyenXe from '../presentation/TatCaChuyenXe'
 import SearchResult from '../presentation/SearchResult'
+import listLink from '../utils/ListLink'
 
 const About = () => (
   <div>
@@ -24,7 +25,10 @@ const MyRouter = () => {
 
         <Routes>
           <Route path='/' element={<App />} />
-          <Route path='/tat-ca-chuyen-xe' element={<TatCaChuyenXe />} />
+          <Route
+            path='/tat-ca-chuyen-xe'
+            element={<TatCaChuyenXe link={listLink.chuyenXe} postValue={''} />}
+          />
           <Route path='/tim-kiem/:str' element={<SearchResult />} />
         </Routes>
       </div>

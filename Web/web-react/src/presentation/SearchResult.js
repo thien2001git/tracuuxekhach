@@ -1,5 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import TatCaChuyenXe from './TatCaChuyenXe'
+import listLink from '../utils/ListLink'
 
 class SearchResult1 extends React.Component {
   constructor(props) {
@@ -8,11 +10,27 @@ class SearchResult1 extends React.Component {
       myKey: this.props.myKey,
     }
   }
+
+  componentDidMount() {}
+
   render() {
     console.log(this.state.myKey)
+    const key = decodeURIComponent(this.state.myKey)
     return (
       <>
-        <h1>okok {this.state.myKey}</h1>
+        <div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              margin: '0px 100px',
+              fontSize: 'larger',
+            }}
+          >
+            Kết quả tìm kiếm cho: <b>{key}</b>
+          </div>
+          <TatCaChuyenXe link={listLink.postSearchRespone} postValue={key} />
+        </div>
       </>
     )
   }
@@ -23,7 +41,6 @@ const SearchResult = () => {
   const currentLink = window.location.href.substring(
     'http://localhost:3000/tim-kiem/'.length,
   )
-
   return <SearchResult1 myKey={currentLink} />
 }
 export default SearchResult

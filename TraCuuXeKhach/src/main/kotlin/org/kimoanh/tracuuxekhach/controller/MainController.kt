@@ -56,9 +56,9 @@ class MainController {
     fun search(
         @RequestBody requestHistory: RequestHistory,
     ): List<SearchResponse> {
-        val string = requestHistory.data.lowercase()
+        val string = Utils.convertToNonAccent(requestHistory.data.lowercase())
         val res = ArrayList<SearchResponse>()
-        val his = Utils.readFile()
+        val his = Utils.readFile().toSet()
         his.forEach {
             if (it.data.contains(string)) {
                 res.add(SearchResponse(it.data, true))
@@ -75,24 +75,68 @@ class MainController {
             addList(it.xe.hangXe, string, res)
             addList(it.xe.loaiXe, string, res)
             addList(it.xe.soCho.toString(), string, res)
-            addList(it.tgDi.toString(), string, res)
-            addList(it.tgDen.toString(), string, res)
+            addList(Utils.longToDateString(it.tgDi), string, res)
+            addList(Utils.longToDateString(it.tgDen), string, res)
             addList(it.giaVe.toString(), string, res)
             addList(it.loTrinh.loTrinh, string, res)
             addList(it.taiXe.sdt, string, res)
             addList(it.taiXe.bangLai, string, res)
             addList(it.taiXe.fullName, string, res)
-            addList(it.taiXe.ngayLayBang.toString(), string, res)
-            addList(it.taiXe.ngaySinh.toString(), string, res)
+            addList(Utils.longToDateString(it.taiXe.ngayLayBang), string, res)
+            addList(Utils.longToDateString(it.taiXe.ngaySinh), string, res)
         }
         return res
     }
 
     fun addList(str: String, re: String, res: ArrayList<SearchResponse>): Boolean {
-        if (str.lowercase().contains(re)) {
+        if (Utils.convertToNonAccent(str.lowercase()).contains(re)) {
             res.add(SearchResponse(str, false))
             return true
         }
         return false
+    }
+
+    fun ChuyenXeModel.isContain(value: String): Boolean {
+        val arr = arrayOf(
+            loTrinh.loTrinh,
+            taiXe.sdt,
+            taiXe.bangLai,
+            taiXe.fullName,
+            Utils.longToDateString(taiXe.ngayLayBang),
+            Utils.longToDateString(taiXe.ngaySinh),
+            xe.bienSo,
+            xe.hangXe,
+            xe.loaiXe,
+            xe.soCho.toString(),
+            Utils.longToDateString(tgDi),
+            Utils.longToDateString(tgDen),
+            giaVe.toString(),
+            chieu
+        )
+        val v = Utils.convertToNonAccent(value.lowercase())
+        for (i in arr) {
+            if (Utils.convertToNonAccent(i.lowercase()).contains(v)) {
+                return true
+            }
+        }
+        return false
+    }
+
+    @PostMapping("/get-search")
+    fun getSearch(
+        @RequestBody requestHistory: RequestHistory,
+    ): List<ChuyenXeModel> {
+        val list = ArrayList<ChuyenXeModel>()
+        val chuyenXe = chuyenXeRepo.findAll()
+        for (i in chuyenXe) {
+            list.add(ChuyenXeAdapter(i, loTrinhRepo, taiXeRepo, xeRepo).toModel())
+        }
+        val res = ArrayList<ChuyenXeModel>()
+        list.forEach {
+            if (it.isContain(requestHistory.data)) {
+                res.add(it)
+            }
+        }
+        return res
     }
 }

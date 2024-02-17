@@ -1,6 +1,5 @@
 import React from 'react'
 import myFetch from '../utils/myFetch'
-import listLink from '../utils/ListLink'
 import formatDateByPattern from '../utils/formatDateByPattern'
 import formatDateByPattern2 from '../utils/formatDateByPattern2'
 import ArrowDown from '../images/Arrow down.svg'
@@ -8,21 +7,38 @@ import ArrowUp from '../images/Arrow up.svg'
 import map from '../utils/myMap'
 import listCol from '../utils/listCol'
 import listColName from '../utils/listColName'
+import postDataToAPI from '../utils/postDataToAPI'
+import listLink from '../utils/ListLink'
 
 class TatCaChuyenXe extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       sort: map,
+      link: props.link,
+      postValue: props.postValue,
     }
   }
 
   componentDidMount() {
-    myFetch(listLink.chuyenXe).then((value) =>
-      this.setState({
-        chuyenXe: value,
-      }),
-    )
+    if (this.state.postValue === '') {
+      myFetch(this.state.link).then((value) =>
+        this.setState({
+          chuyenXe: value,
+        }),
+      )
+    } else {
+      const postData = {
+        data: this.state.postValue,
+      }
+      postDataToAPI(JSON.stringify(postData), listLink.postSearchRespone).then(
+        (value) => {
+          this.setState({
+            chuyenXe: value,
+          })
+        },
+      )
+    }
   }
 
   sortCol(colName) {

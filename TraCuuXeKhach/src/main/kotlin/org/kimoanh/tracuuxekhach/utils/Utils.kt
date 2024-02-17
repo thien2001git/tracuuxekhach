@@ -45,4 +45,16 @@ object Utils {
         }
         return list.reversed()
     }
+
+    fun convertToNonAccent(str: String): String {
+        var result = str
+        result = result.replace("/á|à|ả|ã|ạ|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/g".toRegex(), "a")
+        result = result.replace("/đ/g".toRegex(), "d")
+        result = result.replace("/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/g".toRegex(), "e")
+        result = result.replace("/í|ì|ỉ|ĩ|ị/g".toRegex(), "i")
+        result = result.replace("/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/g".toRegex(), "o")
+        result = result.replace("/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/g".toRegex(), "u")
+        result = result.replace("/ý|ỳ|ỷ|ỹ|ỵ/g".toRegex(), "y")
+        return result
+    }
 }
