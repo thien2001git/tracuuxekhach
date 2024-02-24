@@ -88,7 +88,11 @@ class MainController {
         return res
     }
 
-    fun addList(str: String, re: String, res: ArrayList<SearchResponse>): Boolean {
+    fun addList(
+        str: String,
+        re: String,
+        res: ArrayList<SearchResponse>,
+    ): Boolean {
         if (Utils.convertToNonAccent(str.lowercase()).contains(re)) {
             res.add(SearchResponse(str, false))
             return true
@@ -97,22 +101,23 @@ class MainController {
     }
 
     fun ChuyenXeModel.isContain(value: String): Boolean {
-        val arr = arrayOf(
-            loTrinh.loTrinh,
-            taiXe.sdt,
-            taiXe.bangLai,
-            taiXe.fullName,
-            Utils.longToDateString(taiXe.ngayLayBang),
-            Utils.longToDateString(taiXe.ngaySinh),
-            xe.bienSo,
-            xe.hangXe,
-            xe.loaiXe,
-            xe.soCho.toString(),
-            Utils.longToDateString(tgDi),
-            Utils.longToDateString(tgDen),
-            giaVe.toString(),
-            chieu
-        )
+        val arr =
+            arrayOf(
+                loTrinh.loTrinh,
+                taiXe.sdt,
+                taiXe.bangLai,
+                taiXe.fullName,
+                Utils.longToDateString(taiXe.ngayLayBang),
+                Utils.longToDateString(taiXe.ngaySinh),
+                xe.bienSo,
+                xe.hangXe,
+                xe.loaiXe,
+                xe.soCho.toString(),
+                Utils.longToDateString(tgDi),
+                Utils.longToDateString(tgDen),
+                giaVe.toString(),
+                chieu,
+            )
         val v = Utils.convertToNonAccent(value.lowercase())
         for (i in arr) {
             if (Utils.convertToNonAccent(i.lowercase()).contains(v)) {

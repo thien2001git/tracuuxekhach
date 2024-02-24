@@ -1,60 +1,57 @@
 package org.kimoanh.tracuuxekhach.utils
 
 import org.kimoanh.tracuuxekhach.entity.request.RequestHistory
+import org.kimoanh.tracuuxekhach.utils.Constant.filePath
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 
 object Utils {
-    val filePath = "history/.history"
-
-    fun appendFile(contentToAppend: String) {
-        try {
+    fun appendFile(contentToAppend: String): Result<Unit> {
+        return kotlin.runCatching {
             val fileWriter = FileWriter(filePath, true)
             val bufferedWriter = BufferedWriter(fileWriter)
 
             bufferedWriter.write(contentToAppend)
 
             bufferedWriter.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
         }
     }
 
     fun longToDateString(timestamp: Long): String {
-        // Create a SimpleDateFormat instance with the desired date format
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-
-        // Convert the timestamp to a Date object
-        val date = Date(timestamp)
-
-        // Format the Date object to a string
-        return dateFormat.format(date)
+        return kotlin.runCatching {
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            val date = Date(timestamp)
+            dateFormat.format(date)
+        }.getOrThrow()
     }
 
     fun readFile(): List<RequestHistory> {
-        val list = ArrayList<RequestHistory>()
-        val lines: List<String> = File(filePath).readLines()
+        return kotlin.runCatching {
+            val list = ArrayList<RequestHistory>()
+            val lines: List<String> = File(filePath).readLines()
 
-        // Print each line
-        lines.forEach {
-            list.add(RequestHistory(it.substring(23)))
-        }
-        return list.reversed()
+            // Print each line
+            lines.forEach {
+                list.add(RequestHistory(it.substring(23)))
+            }
+            list.reversed()
+        }.getOrThrow()
     }
 
     fun convertToNonAccent(str: String): String {
-        var result = str
-        result = result.replace("/á|à|ả|ã|ạ|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/g".toRegex(), "a")
-        result = result.replace("/đ/g".toRegex(), "d")
-        result = result.replace("/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/g".toRegex(), "e")
-        result = result.replace("/í|ì|ỉ|ĩ|ị/g".toRegex(), "i")
-        result = result.replace("/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/g".toRegex(), "o")
-        result = result.replace("/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/g".toRegex(), "u")
-        result = result.replace("/ý|ỳ|ỷ|ỹ|ỵ/g".toRegex(), "y")
-        return result
+        return kotlin.runCatching {
+            var result = str
+            result = result.replace("[áàảãạăắằẳẵặâấầẩẫậ]".toRegex(), "a")
+            result = result.replace("đ".toRegex(), "d")
+            result = result.replace("[éèẻẽẹêếềểễệ]".toRegex(), "e")
+            result = result.replace("[íìỉĩị]".toRegex(), "i")
+            result = result.replace("[óòỏõọôốồổỗộơớờởỡợ]".toRegex(), "o")
+            result = result.replace("[úùủũụưứừửữự]".toRegex(), "u")
+            result = result.replace("[ýỳỷỹỵ]".toRegex(), "y")
+            result
+        }.getOrThrow()
     }
 }
