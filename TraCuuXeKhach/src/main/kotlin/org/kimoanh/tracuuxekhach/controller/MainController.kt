@@ -100,33 +100,6 @@ class MainController {
         return false
     }
 
-    fun ChuyenXeModel.isContain(value: String): Boolean {
-        val arr =
-            arrayOf(
-                loTrinh.loTrinh,
-                taiXe.sdt,
-                taiXe.bangLai,
-                taiXe.fullName,
-                Utils.longToDateString(taiXe.ngayLayBang),
-                Utils.longToDateString(taiXe.ngaySinh),
-                xe.bienSo,
-                xe.hangXe,
-                xe.loaiXe,
-                xe.soCho.toString(),
-                Utils.longToDateString(tgDi),
-                Utils.longToDateString(tgDen),
-                giaVe.toString(),
-                chieu,
-            )
-        val v = Utils.convertToNonAccent(value.lowercase())
-        for (i in arr) {
-            if (Utils.convertToNonAccent(i.lowercase()).contains(v)) {
-                return true
-            }
-        }
-        return false
-    }
-
     @PostMapping("/get-search")
     fun getSearch(
         @RequestBody requestHistory: RequestHistory,
@@ -144,4 +117,31 @@ class MainController {
         }
         return res
     }
+}
+
+fun ChuyenXeModel.isContain(value: String): Boolean {
+    val arr =
+        arrayOf(
+            loTrinh.loTrinh,
+            taiXe.sdt,
+            taiXe.bangLai,
+            taiXe.fullName,
+            Utils.longToDateString(taiXe.ngayLayBang),
+            Utils.longToDateString(taiXe.ngaySinh),
+            xe.bienSo,
+            xe.hangXe,
+            xe.loaiXe,
+            xe.soCho.toString(),
+            Utils.longToDateString(tgDi),
+            Utils.longToDateString(tgDen),
+            giaVe.toString(),
+            chieu,
+        )
+    val v = Utils.convertToNonAccent(value.lowercase())
+    for (i in arr) {
+        if (Utils.convertToNonAccent(i.lowercase()).contains(v)) {
+            return true
+        }
+    }
+    return false
 }
