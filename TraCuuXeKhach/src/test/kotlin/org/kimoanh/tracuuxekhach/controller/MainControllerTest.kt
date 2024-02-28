@@ -61,32 +61,34 @@ class MainControllerTest {
 
     @Test
     fun `isContain should return true`() {
-        val chuyenXeModel = ChuyenXeModel(
-            0,
-            LoTrinh(0, "cascj"),
-            TaiXe(0, "caic", "0000", System.currentTimeMillis(), "B9", System.currentTimeMillis()),
-            Xe(0, "111", 99, "casc", "casc"),
-            System.currentTimeMillis(),
-            System.currentTimeMillis(),
-            99999,
-            "Xuoi"
-        )
+        val chuyenXeModel =
+            ChuyenXeModel(
+                0,
+                LoTrinh(0, "cascj"),
+                TaiXe(0, "caic", "0000", System.currentTimeMillis(), "B9", System.currentTimeMillis()),
+                Xe(0, "111", 99, "casc", "casc"),
+                System.currentTimeMillis(),
+                System.currentTimeMillis(),
+                99999,
+                "Xuoi",
+            )
         val result = chuyenXeModel.isContain("ca")
         Assertions.assertTrue(result)
     }
 
     @Test
     fun `isContain should return false`() {
-        val chuyenXeModel = ChuyenXeModel(
-            0,
-            LoTrinh(0, "cascj"),
-            TaiXe(0, "caic", "0000", System.currentTimeMillis(), "B9", System.currentTimeMillis()),
-            Xe(0, "111", 99, "casc", "casc"),
-            System.currentTimeMillis(),
-            System.currentTimeMillis(),
-            99999,
-            "Xuoi"
-        )
+        val chuyenXeModel =
+            ChuyenXeModel(
+                0,
+                LoTrinh(0, "cascj"),
+                TaiXe(0, "caic", "0000", System.currentTimeMillis(), "B9", System.currentTimeMillis()),
+                Xe(0, "111", 99, "casc", "casc"),
+                System.currentTimeMillis(),
+                System.currentTimeMillis(),
+                99999,
+                "Xuoi",
+            )
         val result = chuyenXeModel.isContain("xxxx")
         Assertions.assertFalse(result)
     }
