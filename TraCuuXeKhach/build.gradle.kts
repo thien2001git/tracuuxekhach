@@ -7,6 +7,7 @@ plugins {
     kotlin("plugin.spring") version "1.9.22"
     kotlin("plugin.jpa") version "1.9.22"
     id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
+    jacoco
 }
 
 group = "org.kimoanh"
@@ -40,4 +41,8 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = "0.8.11"
 }
